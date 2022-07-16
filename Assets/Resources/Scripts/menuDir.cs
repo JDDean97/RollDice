@@ -60,6 +60,21 @@ public class menuDir : MonoBehaviour
             statsNew.Add(kvp.Key, 1 + temp);
             PlayerPrefs.SetFloat(kvp.Key, 1+temp);
         }
+        Color col = new Color(0, 0, 0);
+        int colnum = Random.Range(0, 3);
+        switch(colnum)
+        {
+            case 0:
+                col = Color.black;
+                break;
+            case 1:
+                col = Color.magenta;
+                break;
+            case 2:
+                col = Color.red;
+                break;
+        }
+        Resources.Load<Material>("Materials/CarBody").color = col;
 
         sheetUpdate(statsNew);
 

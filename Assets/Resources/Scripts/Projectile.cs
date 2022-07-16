@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     Rigidbody rb;
-    const float speed = 25f;
+    const float speed = 15f;
     Vector3 prevPos;
     float lifeTime = 4;
     // Start is called before the first frame update
@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
-        prevPos = transform.position;
+        prevPos = transform.position + transform.forward;
     }
 
     private void Update()

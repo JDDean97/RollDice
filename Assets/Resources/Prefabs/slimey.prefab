@@ -102,6 +102,8 @@ GameObject:
   - component: {fileID: 4484481624153028922}
   - component: {fileID: 4484481624153028921}
   - component: {fileID: 4484481624153028920}
+  - component: {fileID: 7702143838898613851}
+  - component: {fileID: 6488371522804726796}
   m_Layer: 0
   m_Name: slimey
   m_TagString: Untagged
@@ -133,7 +135,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3674230958051378287}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -150,16 +152,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 3674230958051378287}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 4.25
   m_Speed: 0
   m_Acceleration: 0
   avoidancePriority: 60
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 5.33
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -174,9 +176,40 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 2.94
-  m_Height: 4.63
+  m_Height: 10
   m_Direction: 1
-  m_Center: {x: 0, y: 2.58, z: 0}
+  m_Center: {x: 0, y: 4.8, z: 0}
+--- !u!114 &7702143838898613851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674230958051378287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a988ea26affb76448b27b7e8cb948e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &6488371522804726796
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674230958051378287}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 91f27bb6121782547a72ef3c2e7f4709, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3964998303447335530
 GameObject:
   m_ObjectHideFlags: 0

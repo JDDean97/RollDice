@@ -105,8 +105,11 @@ public class Car : MonoBehaviour
         rotate *= 1 - 0.3f * slip;
         rotVel *= 1 - slip;
         pvel = transform.InverseTransformDirection(rb.velocity);
-        turn();
-        throttle();
+        if (isGrounded)
+        {
+            turn();
+            throttle();
+        }
         
         vel = transform.InverseTransformDirection(rb.velocity);
                
