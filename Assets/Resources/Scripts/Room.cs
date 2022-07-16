@@ -76,33 +76,55 @@ public class Room : MonoBehaviour
 
             
             float dist = GetComponent<Collider>().bounds.size.x;
+            GameObject gate = Resources.Load<GameObject>("Prefabs/Gate");
             Vector3 offset = Vector3.zero;
             string relation = "";
-            switch(iter)
+            string wallName = "";
+            string opposite = "";
+            switch (iter)
             {
                 case 0:
                     offset = new Vector3(0,0,dist);
                     relation = "down";
+                    wallName = "WallUp";
+                    opposite = "WallDown";
                     break;
                 case 1:
                     offset = new Vector3(dist, 0, 0);
                     relation = "left";
+                    wallName = "WallRight";
+                    opposite = "WallLeft";
                     break;
                 case 2:
                     offset = new Vector3(0, 0, -dist);
                     relation = "up";
+                    wallName = "WallDown";
+                    opposite = "WallUp";
                     break;
                 case 3:
                     offset = new Vector3(-dist, 0, 0);
                     relation = "right";
+                    wallName = "WallLeft";
+                    opposite = "WallRight";
                     break;
             }
+
             GameObject room = Instantiate(Resources.Load<GameObject>("Prefabs/Floor"),transform.position + offset,Quaternion.identity);
             room.GetComponent<Room>().neighbors.Add(relation, this);
             int nameNum = Random.Range(1, 4);
             room.GetComponent<Renderer>().material = Resources.Load<Material>("Materials/matFloor" + nameNum);
-            //room.transform.position = transform.position + offset;
+            
             neighbors.Add(directions[iter], room.GetComponent<Room>());
+            GameObject ga = Instantiate(gate, transform.Find(wallName).position, transform.Find(wallName).rotation);
+            Quaternion rot = ga.transform.rotation;
+            rot.eulerAngles += new Vector3(90, 0, 0);
+            ga.transform.rotation = rot;
+            ga.transform.parent = room.transform;
+
+
+            Destroy(transform.Find(wallName).gameObject);
+            Destroy(room.transform.Find(opposite).gameObject);
+
             num--;
             FindObjectOfType<Director>().setRoomCount(FindObjectOfType<Director>().getRoomCount() - 1);
         }
