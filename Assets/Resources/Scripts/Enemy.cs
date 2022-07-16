@@ -80,7 +80,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Die()
     {
-        
+        FindObjectOfType<Director>().countEnemy();
     }
 
     protected void OnTriggerEnter(Collider other)

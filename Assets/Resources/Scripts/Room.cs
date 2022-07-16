@@ -130,7 +130,8 @@ public class Room : MonoBehaviour
         }
         GetComponentInParent<NavMeshSurface>().BuildNavMesh();
         spawnStuff();
+        FindObjectOfType<Director>().countEnemy();
 
-        
+
     }
 }

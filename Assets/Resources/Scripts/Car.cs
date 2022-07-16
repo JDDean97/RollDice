@@ -124,14 +124,19 @@ public class Car : MonoBehaviour
         boost = 0;
     }
 
+    public bool getGrounded()
+    {
+        return isGrounded;
+    }
+
     public void setBoost()
     {
         boost = boostPower;
     }
 
-    public bool getSlip()
+    public float getSlip()
     {
-        return inSlip;
+        return slip;
     }
 
     void throttle()

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    Image imgHealth;
+    Image imgBoost;
     float health = 100;
     float boost = 2;
     const float maxBoost = 2;
@@ -13,12 +16,15 @@ public class Player : MonoBehaviour
     Animator anim;
     Rigidbody rb;
     Car car;
+    public TrailRenderer[] skidders = new TrailRenderer[4];
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         car = GetComponent<Car>();
+        imgHealth = FindObjectOfType<Canvas>().transform.Find("speedometer/health").GetComponent<Image>();
+        imgBoost = FindObjectOfType<Canvas>().transform.Find("speedometer/boost").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -37,15 +43,34 @@ public class Player : MonoBehaviour
             rechargeTimer = rechargeDelay;
         }
 
-        if(car.getSlip())//if car is drifting then increase health
+        if (car.getSlip() > 0.7f && car.getGrounded())//if car is drifting then increase health
         {
             health += 1 * Time.deltaTime;
             health = Mathf.Clamp(health, 0, 100);
+            foreach (TrailRenderer tr in skidders)
+            {
+                tr.emitting = true;
+            }
+
+        }
+        else
+        {
+            foreach (TrailRenderer tr in skidders)
+            {
+                tr.emitting = false;
+            }
         }
 
         animate();
+        uiUpdate();
         //Debug.Log("Health: " + health);
 
+    }
+
+    void uiUpdate()
+    {
+        imgHealth.fillAmount = health / 100;
+        imgBoost.fillAmount = boost / 2;
     }
 
     void animate()
