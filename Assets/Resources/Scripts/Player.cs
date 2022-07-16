@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         boost = Mathf.Clamp(boost, 0, maxBoost);
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            GetComponent<Car>().setBoost(0.002f);
+            GetComponent<Car>().setBoost();
             boost -= 1 * Time.deltaTime;
             rechargeTimer = rechargeDelay;
         }

@@ -36,15 +36,19 @@ public class Car : MonoBehaviour
     Bounds bounds;
     float dir = 0;
     float boost = 0;
+    float boostPower = 0.002f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //backTires.Add(transform.Find("Wheel (3)").gameObject);
-        //backTires.Add(transform.Find("Wheel (4)").gameObject);
         distToGround = GetComponent<Collider>().bounds.extents.y;
         rb.centerOfMass = rb.centerOfMass - Vector3.up * 0.5f;
+        accelBase = 20 + (30 * (PlayerPrefs.GetFloat("accel")*0.1f));
+        topSpeed = 20 + (30 * (PlayerPrefs.GetFloat("speed")*0.1f));
+        rotateBase = 60 + (90 * (PlayerPrefs.GetFloat("turn")*0.1f));
+        brakeStrength = 20 + (40 * (PlayerPrefs.GetFloat("brake")*0.1f));
+        boostPower = 0.001f + (0.002f * (PlayerPrefs.GetFloat("boost")*0.1f));
     }
 
     private void Update()
@@ -117,9 +121,9 @@ public class Car : MonoBehaviour
         boost = 0;
     }
 
-    public void setBoost(float power)
+    public void setBoost()
     {
-        boost = power;
+        boost = boostPower;
     }
 
     void throttle()
