@@ -12,11 +12,13 @@ public class Player : MonoBehaviour
     float rechargeTimer;
     Animator anim;
     Rigidbody rb;
+    Car car;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
+        car = GetComponent<Car>();
     }
 
     // Update is called once per frame
@@ -30,12 +32,19 @@ public class Player : MonoBehaviour
         boost = Mathf.Clamp(boost, 0, maxBoost);
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            GetComponent<Car>().setBoost();
+            car.setBoost();
             boost -= 1 * Time.deltaTime;
             rechargeTimer = rechargeDelay;
         }
 
+        if(car.getSlip())//if car is drifting then increase health
+        {
+            health += 1 * Time.deltaTime;
+            health = Mathf.Clamp(health, 0, 100);
+        }
+
         animate();
+        //Debug.Log("Health: " + health);
 
     }
 

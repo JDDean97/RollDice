@@ -126,23 +126,32 @@ public class Car : MonoBehaviour
         boost = boostPower;
     }
 
+    public bool getSlip()
+    {
+        return inSlip;
+    }
+
     void throttle()
     {
         vel = transform.InverseTransformDirection(rb.velocity);
         torque = Input.GetAxis("Vertical");
         float brake = 0;        
         rb.velocity += (transform.forward * torque) * accel * Time.deltaTime;
-        if (torque < -0.1f)
-        { 
+        if(vel.z> 0 && torque < 0)
+        {
             brake = brakeStrength;
             rb.velocity += -rb.velocity.normalized * brakeStrength * Time.deltaTime;
         }
-        
-        //Debug.Log("angle: " + Vector3.SignedAngle(rb.velocity, transform.forward, transform.up));
-        
-        //Debug.Log("vel.z: " + vel.z + "torque: " + torque);
-        //Debug.Log("driveDir " + driveDir * torque);
-        //Debug.Log("torque " + torque);
+        else if(vel.z<0 && torque>0)
+        {
+            brake = brakeStrength;
+            rb.velocity += -rb.velocity.normalized * brakeStrength * Time.deltaTime;
+        }
+        else if(Input.GetKey(KeyCode.Space)) //brake when user pulls handbrake
+        {
+            brake = brakeStrength * 0.2f;
+            rb.velocity += -rb.velocity.normalized * brakeStrength * Time.deltaTime;
+        }
     }
 
     void turn()
@@ -152,7 +161,7 @@ public class Car : MonoBehaviour
         float tempDir = (Mathf.Abs(ang) > 105) ? -1 : 1;
         dir = Mathf.Lerp(dir, tempDir, 1 * Time.deltaTime);
         Vector3 rot = new Vector3(0,Input.GetAxis("Horizontal") * dir * rotate * Time.deltaTime,0);
-        Debug.Log("rotate: " + rotate);
+        //Debug.Log("rotate: " + rotate);
         if (Input.GetAxis("Horizontal")!=0)
         {
             isRotating = true;

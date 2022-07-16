@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     protected NavMeshAgent nav;
     protected Rigidbody rb;
     protected Player player;
-    protected const float speed = 10f;
+    protected float speed = 10f;
     protected const float dmg = 50; //dmg taken when hurt
     protected Animator anim;
     // Start is called before the first frame update

@@ -28,7 +28,8 @@ public class Room : MonoBehaviour
     public void spawnStuff()
     {
         int gobs = Random.Range(5, 15);
-        int porcs = Random.Range(1, 2);
+        int porcs = Random.Range(0, 3);
+        int decorations = Random.Range(5, 13);
         Vector3 offset = Vector3.zero;
         float max = GetComponent<Collider>().bounds.extents.x -10;
         for(int iter = 0;iter<gobs;iter++)
@@ -47,7 +48,18 @@ public class Room : MonoBehaviour
             g.transform.position = transform.position + offset;
         }
 
-        //TODO: SPAWN DECORATIONS
+        for(int iter = 0;iter<decorations;iter++)
+        {
+            string dec = "crate";
+            if(Random.Range(0,2)>0)
+            {
+                dec = "pillar";
+            }
+            GameObject g = Instantiate(Resources.Load<GameObject>("Prefabs/"+dec));
+            offset.x = Random.Range(-max, max);
+            offset.z = Random.Range(-max, max);
+            g.transform.position = transform.position + offset;
+        }
     }
 
     public void createNeighbors(int num = 4)
@@ -87,6 +99,8 @@ public class Room : MonoBehaviour
             }
             GameObject room = Instantiate(Resources.Load<GameObject>("Prefabs/Floor"),transform.position + offset,Quaternion.identity);
             room.GetComponent<Room>().neighbors.Add(relation, this);
+            int nameNum = Random.Range(1, 4);
+            room.GetComponent<Renderer>().material = Resources.Load<Material>("Materials/matFloor" + nameNum);
             //room.transform.position = transform.position + offset;
             neighbors.Add(directions[iter], room.GetComponent<Room>());
             num--;

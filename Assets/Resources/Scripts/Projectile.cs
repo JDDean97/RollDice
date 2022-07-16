@@ -39,9 +39,10 @@ public class Projectile : MonoBehaviour
         float dist = Vector3.Distance(prevPos, transform.position);
         if(Physics.Raycast(r, out hit,dist))
         {
+            Debug.Log(hit.transform.name);
             if(hit.transform.GetComponent<Player>())
             {
-                hit.transform.GetComponent<Player>().hurt(7);
+                hit.transform.GetComponentInParent<Player>().hurt(7);
             }
             if (hit.transform.GetComponent<Enemy>())
             {

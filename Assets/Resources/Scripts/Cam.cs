@@ -21,7 +21,7 @@ public class Cam : MonoBehaviour
 
     void follow()
     {
-        Vector3 lead = target.GetComponent<Rigidbody>().velocity.normalized * 3;
+        Vector3 lead = target.GetComponent<Rigidbody>().velocity.normalized * 5;
         float tSpeed = target.GetComponent<Rigidbody>().velocity.magnitude *0.8f; //speed of target
         Vector3 newPos = target.transform.position + lead + offset;
         transform.position = Vector3.Lerp(transform.position, newPos, (tSpeed + speed) * Time.deltaTime);
