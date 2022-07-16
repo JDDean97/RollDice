@@ -28,7 +28,7 @@ public class Room : MonoBehaviour
     public void spawnStuff()
     {
         int gobs = Random.Range(5, 15);
-        int porcs = Random.Range(3, 5);
+        int porcs = Random.Range(1, 2);
         Vector3 offset = Vector3.zero;
         float max = GetComponent<Collider>().bounds.extents.x -10;
         for(int iter = 0;iter<gobs;iter++)
@@ -38,6 +38,16 @@ public class Room : MonoBehaviour
             offset.z = Random.Range(-max, max);
             g.transform.position = transform.position + offset;
         }
+
+        for (int iter = 0; iter < porcs; iter++)
+        {
+            GameObject g = Instantiate(Resources.Load<GameObject>("Prefabs/porc"));
+            offset.x = Random.Range(-max, max);
+            offset.z = Random.Range(-max, max);
+            g.transform.position = transform.position + offset;
+        }
+
+        //TODO: SPAWN DECORATIONS
     }
 
     public void createNeighbors(int num = 4)
