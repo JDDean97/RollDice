@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
 {
     Image imgHealth;
     Image imgBoost;
+    Image imgNeedle;
     float health = 100;
+    float topSpeed;
     float boost = 2;
     const float maxBoost = 2;
     const float boostFillRate = 1.5f;
@@ -26,7 +28,9 @@ public class Player : MonoBehaviour
         car = GetComponent<Car>();
         imgHealth = FindObjectOfType<Canvas>().transform.Find("speedometer/health").GetComponent<Image>();
         imgBoost = FindObjectOfType<Canvas>().transform.Find("speedometer/boost").GetComponent<Image>();
+        imgNeedle = FindObjectOfType<Canvas>().transform.Find("speedometer/needle").GetComponent<Image>();
         dj = FindObjectOfType<DJ>();
+        topSpeed = car.topSpeed;
     }
 
     // Update is called once per frame
@@ -54,7 +58,7 @@ public class Player : MonoBehaviour
 
         if (car.getSlip() > 0.7f && car.getGrounded())//if car is drifting then increase health
         {
-            health += 2.2f * Time.deltaTime;
+            health += 5f * Time.deltaTime;
             health = Mathf.Clamp(health, 0, 100);
             foreach (TrailRenderer tr in skidders)
             {
@@ -82,6 +86,9 @@ public class Player : MonoBehaviour
     {
         imgHealth.fillAmount = health / 100;
         imgBoost.fillAmount = boost / 2;
+
+        float num = Mathf.Clamp(rb.velocity.magnitude / car.topSpeed, 0, 1);
+        imgNeedle.rectTransform.rotation = Quaternion.Euler(0, 0, -210 - (300*num));
     }
 
     public float getSpeed()
@@ -150,6 +157,10 @@ public class Player : MonoBehaviour
         if(rb.velocity.magnitude>10)
         {
             dj.playSound("crash");
+            if(!collision.gameObject.CompareTag("Enemy"))
+            {
+                hurt(rb.velocity.magnitude*0.25f);
+            }
         }
     }
 }

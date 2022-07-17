@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Director : MonoBehaviour
 {
-    int roomCount = 3;
+    int roomCount = 6;
     int enemyCount = 0;
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 60;
-        Cursor.visible = false;
         FindObjectOfType<Room>().createNeighbors(2);
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -63,6 +63,14 @@ public class Director : MonoBehaviour
             gameOver(true);
         }
 
+    }
+
+    public void skipIntro()
+    {
+        Time.timeScale = 1;
+        FindObjectOfType<Canvas>().transform.Find("Intro").gameObject.SetActive(false);
+        Cursor.visible = false;
+        Camera.main.transform.Find("Music").GetComponent<AudioSource>().Play();
     }
 
     public void gameOver(bool victory)

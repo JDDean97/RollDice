@@ -8,6 +8,7 @@ TagManager:
   - RoomTrigger
   - EWeapon
   - Gate
+  - Enemy
   layers:
   - Default
   - TransparentFX
