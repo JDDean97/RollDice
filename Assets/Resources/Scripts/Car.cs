@@ -44,7 +44,7 @@ public class Car : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
         rb.centerOfMass = rb.centerOfMass - Vector3.up * 0.5f;
-        accelBase = 20 + (30 * (PlayerPrefs.GetFloat("accel")*0.1f));
+        accelBase = 30 + (20 * (PlayerPrefs.GetFloat("accel")*0.1f));
         topSpeed = 20 + (30 * (PlayerPrefs.GetFloat("speed")*0.1f));
         rotateBase = 60 + (90 * (PlayerPrefs.GetFloat("turn")*0.1f));
         brakeStrength = 20 + (40 * (PlayerPrefs.GetFloat("brake")*0.1f));
