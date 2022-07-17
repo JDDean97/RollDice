@@ -16,8 +16,15 @@ public class menuDir : MonoBehaviour
     TextMeshProUGUI TXThandle;
     [SerializeField]
     TextMeshProUGUI TXTboost;
+    [SerializeField]
+    TextMeshProUGUI TXTname;
     // Start is called before the first frame update
     void Start()
+    {
+        generateStats();
+    }
+
+    private void Awake()
     {
         generateStats();
     }
@@ -41,6 +48,9 @@ public class menuDir : MonoBehaviour
 
     public void generateStats()
     {
+        string[] names = { "accord", "cobalt", "civic", "altima", "camry", "sentra", "forte"};
+        TXTname.text = names[Random.Range(0, names.Length)];
+
         int points = 25;
         Dictionary<string, float> stats = new Dictionary<string, float>(){
             { "speed", 1 },
@@ -61,17 +71,20 @@ public class menuDir : MonoBehaviour
             PlayerPrefs.SetFloat(kvp.Key, 1+temp);
         }
         Color col = new Color(0, 0, 0);
-        int colnum = Random.Range(0, 3);
+        int colnum = Random.Range(0, 4);
         switch(colnum)
         {
             case 0:
                 col = Color.black;
                 break;
             case 1:
-                col = Color.magenta;
+                col = Color.cyan;
                 break;
             case 2:
                 col = Color.red;
+                break;
+            case 3:
+                col = Color.yellow;
                 break;
         }
         Resources.Load<Material>("Materials/CarBody").color = col;

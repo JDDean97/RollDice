@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Director : MonoBehaviour
 {
-    int roomCount = 8;
+    int roomCount = 3;
     int enemyCount = 0;
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 60;
+        Cursor.visible = false;
         FindObjectOfType<Room>().createNeighbors(2);
     }
 
@@ -57,7 +58,7 @@ public class Director : MonoBehaviour
             }
         }
 
-        if(roomCount==0)
+        if(roomCount==0 && enemyCount-1 ==0)
         {
             gameOver(true);
         }
@@ -75,6 +76,7 @@ public class Director : MonoBehaviour
         {
             FindObjectOfType<Canvas>().transform.Find("LoserScreen").gameObject.SetActive(true);
         }
+        Cursor.visible = true;
         StartCoroutine(delayLoad());
     }
 
