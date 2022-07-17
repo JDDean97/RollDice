@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Director : MonoBehaviour
 {
-    int roomCount = 6;
+    int roomCount = 8;
     int enemyCount = 0;
     // Start is called before the first frame update
     void Start()
@@ -58,8 +58,9 @@ public class Director : MonoBehaviour
             }
         }
 
-        if(roomCount==0 && enemyCount-1 ==0)
+        if(roomCount<=0 && enemyCount-1 ==0)
         {
+            //GameObject.FindGameObjectWithTag("Trophy").SetActive(true);
             gameOver(true);
         }
 
@@ -90,7 +91,7 @@ public class Director : MonoBehaviour
 
     IEnumerator delayLoad()
     {
-        float time = 2;
+        float time = 6;
         
         while(time>0)
         {

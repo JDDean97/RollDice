@@ -44,10 +44,10 @@ public class Player : MonoBehaviour
         { boost += boostFillRate * Time.deltaTime; }
 
         boost = Mathf.Clamp(boost, 0, maxBoost);
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             car.setBoost();
-            boost -= 1 * Time.deltaTime;
+            boost -= 1 *Time.deltaTime;
             rechargeTimer = rechargeDelay;
         }
 
@@ -149,6 +149,10 @@ public class Player : MonoBehaviour
         else if(other.CompareTag("EWeapon"))
         {
             hurt(3);
+        }
+        else if(other.CompareTag("Trophy"))
+        {
+            FindObjectOfType<Director>().gameOver(true);
         }
     }
 

@@ -29,7 +29,7 @@ public class Room : MonoBehaviour
     {
         int gobs = Random.Range(5, 15);
         int porcs = Random.Range(0, 3);
-        int slimes = Random.Range(1, 3);
+        int slimes = Random.Range(0, 2);
         int decorations = Random.Range(5, 13);
         Vector3 offset = Vector3.zero;
         float max = GetComponent<Collider>().bounds.extents.x -10;

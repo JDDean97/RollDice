@@ -31,6 +31,7 @@ public class Goblin : Enemy
         else
         {
             crossbow.SetActive(false);
+            base.speed *= 1.25f;
         }
     }
 

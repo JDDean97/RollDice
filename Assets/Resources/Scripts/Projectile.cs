@@ -49,12 +49,12 @@ public class Projectile : MonoBehaviour
         {
             if(hit.transform.gameObject == owner)
             { return; }
-            Debug.DrawRay(transform.position, (prevPos - transform.position) * dist, Color.red);
+
             if(hit.transform.GetComponent<Player>())
             {
                 hit.transform.GetComponentInParent<Player>().hurt(7);
             }
-            if (hit.transform.GetComponent<Enemy>())
+            else if (hit.transform.GetComponent<Enemy>())
             {
                 Enemy e = hit.transform.GetComponent<Enemy>();
                 e.Hurt();
@@ -62,4 +62,23 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter(Collision hit)
+    {
+        if (hit.transform.gameObject == owner)
+        { return; }
+
+        if (hit.transform.GetComponent<Player>())
+        {
+            hit.transform.GetComponentInParent<Player>().hurt(7);
+        }
+        else if (hit.transform.GetComponent<Enemy>())
+        {
+            Enemy e = hit.transform.GetComponent<Enemy>();
+            e.Hurt();
+        }
+        Destroy(gameObject);
+    }
+
+
 }

@@ -37,8 +37,7 @@ public class Slime : Enemy
 
     public override void Die()
     {
-        base.Die();
-        anim.SetTrigger("Die");
+        
         if(cloneCounter<cloneMax)
         {
             Vector3 offset = new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
@@ -50,8 +49,9 @@ public class Slime : Enemy
             baby.transform.localScale = transform.localScale / 2;
             baby.GetComponent<Slime>().setClone(cloneCounter + 1);
         }
-        
 
+        base.Die();
+        anim.SetTrigger("Die");
         GetComponentInChildren<Renderer>().material = Resources.Load<Material>("Materials/matSlimeDead");
         Destroy(this.GetComponentInChildren<Collider>());
         Destroy(this.GetComponent<Rigidbody>());

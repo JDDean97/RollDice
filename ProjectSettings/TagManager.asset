@@ -9,6 +9,7 @@ TagManager:
   - EWeapon
   - Gate
   - Enemy
+  - Trophy
   layers:
   - Default
   - TransparentFX

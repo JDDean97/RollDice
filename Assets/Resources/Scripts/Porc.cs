@@ -10,7 +10,7 @@ public class Porc : Enemy
     void Start()
     {
         base.onStart();
-        health = 140;
+        health = 240;
         base.speed = _speed;
     }
 
