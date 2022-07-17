@@ -19,6 +19,26 @@ public class Director : MonoBehaviour
         
     }
 
+    public void roomCountEnemy()
+    {
+        enemyCount = FindObjectsOfType<Enemy>().Length;
+        if (enemyCount - 1 > 0)
+        {
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Gate"))
+            {
+                g.GetComponent<Animator>().SetBool("Open", false);
+                FindObjectOfType<DJ>().playSound("gate");
+            }
+        }
+        else
+        {
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Gate"))
+            {
+                g.GetComponent<Animator>().SetBool("Open", true);
+            }
+        }
+    }
+
     public void countEnemy()
     {
         enemyCount = FindObjectsOfType<Enemy>().Length;

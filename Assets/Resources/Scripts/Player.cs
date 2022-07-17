@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     Car car;
     public TrailRenderer[] skidders = new TrailRenderer[4];
+    DJ dj;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
         car = GetComponent<Car>();
         imgHealth = FindObjectOfType<Canvas>().transform.Find("speedometer/health").GetComponent<Image>();
         imgBoost = FindObjectOfType<Canvas>().transform.Find("speedometer/boost").GetComponent<Image>();
+        dj = FindObjectOfType<DJ>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour
             {
                 tr.emitting = true;
             }
+            dj.playSound("skid");
 
         }
         else
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour
             {
                 tr.emitting = false;
             }
+            dj.stopSound("skid");
         }
 
         animate();
@@ -71,6 +75,11 @@ public class Player : MonoBehaviour
     {
         imgHealth.fillAmount = health / 100;
         imgBoost.fillAmount = boost / 2;
+    }
+
+    public float getSpeed()
+    {
+        return rb.velocity.magnitude;
     }
 
     void animate()
@@ -105,6 +114,14 @@ public class Player : MonoBehaviour
         else if(other.CompareTag("EWeapon"))
         {
             hurt(3);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(rb.velocity.magnitude>10)
+        {
+            dj.playSound("crash");
         }
     }
 }
