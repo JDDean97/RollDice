@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale<=0)
+        { return; }
         rechargeTimer -= 1 * Time.deltaTime;
 
         if(rechargeTimer<0)
@@ -45,9 +47,14 @@ public class Player : MonoBehaviour
             rechargeTimer = rechargeDelay;
         }
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            shoot();
+        }
+
         if (car.getSlip() > 0.7f && car.getGrounded())//if car is drifting then increase health
         {
-            health += 1 * Time.deltaTime;
+            health += 2.2f * Time.deltaTime;
             health = Mathf.Clamp(health, 0, 100);
             foreach (TrailRenderer tr in skidders)
             {
@@ -100,7 +107,28 @@ public class Player : MonoBehaviour
 
     void die()
     {
+        Instantiate(Resources.Load<GameObject>("Prefabs/Explosion"),transform.position,Quaternion.identity);
+        FindObjectOfType<Director>().gameOver(false);
+    }
 
+    public void shoot() //called by animation event
+    {
+        float boltSpeed = 10;
+        if(rb.velocity.magnitude>2)
+        {
+           boltSpeed = rb.velocity.magnitude * 2;
+        }
+        GameObject bolt = Instantiate(Resources.Load<GameObject>("Prefabs/Bolt"));
+        bolt.transform.position = transform.Find("BoltSpawn1").position;
+        bolt.transform.rotation = transform.rotation;
+        bolt.GetComponent<Projectile>().setSpeed(boltSpeed);
+        bolt.GetComponent<Projectile>().setOwner(gameObject);
+
+        bolt = Instantiate(Resources.Load<GameObject>("Prefabs/Bolt"));
+        bolt.transform.position = transform.Find("BoltSpawn2").position;
+        bolt.transform.rotation = transform.rotation;
+        bolt.GetComponent<Projectile>().setSpeed(boltSpeed);
+        bolt.GetComponent<Projectile>().setOwner(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

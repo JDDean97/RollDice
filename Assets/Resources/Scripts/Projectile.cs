@@ -5,9 +5,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     Rigidbody rb;
-    const float speed = 15f;
+    float speed = 15f;
     Vector3 prevPos;
     float lifeTime = 4;
+    GameObject owner;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,28 +19,37 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        rayCheck();
         lifeTime -= 1 * Time.deltaTime;
         if(lifeTime<=0)
         {
             Destroy(gameObject);
         }
+        prevPos = transform.position;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void setSpeed(float s)
     {
-        rayCheck();
-        prevPos = transform.position;
+        speed = s;
+    }
+
+    public void setOwner(GameObject g)
+    {
+        owner = g;
     }
 
     void rayCheck()
     {
         Ray r = new Ray(prevPos, transform.position);
         RaycastHit hit;
-        float dist = Vector3.Distance(prevPos, transform.position);
-        if(Physics.Raycast(r, out hit,dist))
+        //float dist = Vector3.Distance(prevPos, transform.position);
+        float dist = 2;
+        Debug.DrawRay(transform.position, (prevPos - transform.position) * dist, Color.red);
+        if (Physics.Raycast(r, out hit,dist))
         {
-            Debug.Log(hit.transform.name);
+            if(hit.transform.gameObject == owner)
+            { return; }
+            Debug.DrawRay(transform.position, (prevPos - transform.position) * dist, Color.red);
             if(hit.transform.GetComponent<Player>())
             {
                 hit.transform.GetComponentInParent<Player>().hurt(7);

@@ -56,6 +56,40 @@ public class Director : MonoBehaviour
                 g.GetComponent<Animator>().SetBool("Open", true);
             }
         }
+
+        if(roomCount==0)
+        {
+            gameOver(true);
+        }
+
+    }
+
+    public void gameOver(bool victory)
+    {
+        Time.timeScale = 0;
+        if(victory)
+        {
+            FindObjectOfType<Canvas>().transform.Find("VictoryScreen").gameObject.SetActive(true);
+        }
+        else
+        {
+            FindObjectOfType<Canvas>().transform.Find("LoserScreen").gameObject.SetActive(true);
+        }
+        StartCoroutine(delayLoad());
+    }
+
+    IEnumerator delayLoad()
+    {
+        float time = 2;
+        
+        while(time>0)
+        {
+            time -= 1 * Time.fixedUnscaledDeltaTime;
+            Debug.Log("Coroutine timer: " + time);
+            yield return null;
+        }
+        Time.timeScale = 1;
+        StartCoroutine(Loader.loadScene("Menu"));
     }
 
     public int getRoomCount()
@@ -66,10 +100,5 @@ public class Director : MonoBehaviour
     public void setRoomCount(int i)
     {
         roomCount = i;
-    }
-
-    public void generateRooms()
-    {
-
     }
 }

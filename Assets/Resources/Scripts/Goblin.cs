@@ -56,6 +56,7 @@ public class Goblin : Enemy
         GameObject bolt = Instantiate(Resources.Load<GameObject>("Prefabs/Bolt"));
         bolt.transform.position = transform.Find("BoltSpawn").position;
         bolt.transform.rotation = transform.rotation;
+        bolt.GetComponent<Projectile>().setOwner(gameObject);
         
     }
 }
