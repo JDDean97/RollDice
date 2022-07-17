@@ -164,6 +164,7 @@ public class Player : MonoBehaviour
             if(!collision.gameObject.CompareTag("Enemy"))
             {
                 hurt(rb.velocity.magnitude*0.25f);
+                Instantiate(Resources.Load<GameObject>("Prefabs/Spark"),collision.contacts[0].point,Quaternion.identity);
             }
         }
     }

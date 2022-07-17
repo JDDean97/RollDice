@@ -57,14 +57,22 @@ public class Room : MonoBehaviour
             g.transform.position = transform.position + offset;
         }
 
-        for (int iter = 0;iter<decorations;iter++)
+        
+    }
+
+    public void spawnDec()
+    {
+        int decorations = Random.Range(5, 13);
+        Vector3 offset = Vector3.zero;
+        float max = GetComponent<Collider>().bounds.extents.x - 10;
+        for (int iter = 0; iter < decorations; iter++)
         {
             string dec = "crate";
-            if(Random.Range(0,2)>0)
+            if (Random.Range(0, 2) > 0)
             {
                 dec = "pillar";
             }
-            GameObject g = Instantiate(Resources.Load<GameObject>("Prefabs/"+dec));
+            GameObject g = Instantiate(Resources.Load<GameObject>("Prefabs/" + dec));
             offset.x = Random.Range(-max, max);
             offset.z = Random.Range(-max, max);
             g.transform.position = transform.position + offset;
@@ -122,6 +130,7 @@ public class Room : MonoBehaviour
             room.GetComponent<Room>().neighbors.Add(relation, this);
             int nameNum = Random.Range(1, 4);
             room.GetComponent<Renderer>().material = Resources.Load<Material>("Materials/matFloor" + nameNum);
+            room.GetComponent<Room>().spawnDec();
             
             neighbors.Add(directions[iter], room.GetComponent<Room>());
             GameObject ga = Instantiate(gate, transform.Find(wallName).position, transform.Find(wallName).rotation);
@@ -136,6 +145,7 @@ public class Room : MonoBehaviour
 
             num--;
             FindObjectOfType<Director>().setRoomCount(FindObjectOfType<Director>().getRoomCount() - 1);
+            
         }
         GetComponentInParent<NavMeshSurface>().BuildNavMesh();
         spawnStuff();
