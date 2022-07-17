@@ -1988,6 +1988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: gobbo
       objectReference: {fileID: 0}
+    - target: {fileID: 1289763060069989183, guid: 4bdc09afc8629ee4ea1655f813d8436a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1503937278493171604, guid: 4bdc09afc8629ee4ea1655f813d8436a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2869,7 +2874,7 @@ PrefabInstance:
     - target: {fileID: 4158701772687613653, guid: 74d94dd20eeddc04a8afaeb2f0e49b46,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.122
+      value: 10.63
       objectReference: {fileID: 0}
     - target: {fileID: 4158701772687613653, guid: 74d94dd20eeddc04a8afaeb2f0e49b46,
         type: 3}
@@ -2879,7 +2884,7 @@ PrefabInstance:
     - target: {fileID: 4158701772687613653, guid: 74d94dd20eeddc04a8afaeb2f0e49b46,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.779
+      value: 12.03
       objectReference: {fileID: 0}
     - target: {fileID: 4158701772687613653, guid: 74d94dd20eeddc04a8afaeb2f0e49b46,
         type: 3}

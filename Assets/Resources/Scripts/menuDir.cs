@@ -60,15 +60,34 @@ public class menuDir : MonoBehaviour
             { "brake", 1 },
         };
         Dictionary<string, float> statsNew = new Dictionary<string, float>();
-        foreach(KeyValuePair<string,float> kvp in stats)
-        {
-            int temp = Random.Range(1, 10);
-            if(temp>points)
-            { temp = points; }
-            points -= temp;
 
-            statsNew.Add(kvp.Key, 1 + temp);
-            PlayerPrefs.SetFloat(kvp.Key, 1+temp);
+        float failSafe = 0;
+        while (points > 0)
+        {
+            failSafe++;
+            if(failSafe>30)
+            {
+                break;
+            }
+
+            foreach (KeyValuePair<string, float> kvp in stats)
+            {
+                int temp = Random.Range(1, 10);
+                if (temp > points)
+                { temp = points; }
+                points -= temp;
+
+                if(statsNew.ContainsKey(kvp.Key))
+                {
+                    statsNew[kvp.Key] += temp;
+                }
+                else
+                {
+                    statsNew.Add(kvp.Key, 1 + temp);
+                }
+                
+                PlayerPrefs.SetFloat(kvp.Key, statsNew[kvp.Key]);
+            }
         }
         Color col = new Color(0, 0, 0);
         int colnum = Random.Range(0, 4);

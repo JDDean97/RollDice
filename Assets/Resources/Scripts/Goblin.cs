@@ -14,6 +14,14 @@ public class Goblin : Enemy
     void Start()
     {
         base.onStart();
+        if(Random.Range(0,2)>0)
+        {
+            useBow = true;
+        }
+        else
+        {
+            useBow = false;
+        }
         anim.SetBool("Bow", useBow);
         if(useBow)
         { 
@@ -53,7 +61,7 @@ public class Goblin : Enemy
 
     public void shoot() //called by animation event
     {
-        GameObject bolt = Instantiate(Resources.Load<GameObject>("Prefabs/Bolt"));
+        GameObject bolt = Instantiate(Resources.Load<GameObject>("Prefabs/BoltEnemy"));
         bolt.transform.position = transform.Find("BoltSpawn").position;
         bolt.transform.rotation = transform.rotation;
         bolt.GetComponent<Projectile>().setOwner(gameObject);

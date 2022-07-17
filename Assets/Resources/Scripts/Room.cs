@@ -29,6 +29,7 @@ public class Room : MonoBehaviour
     {
         int gobs = Random.Range(5, 15);
         int porcs = Random.Range(0, 3);
+        int slimes = Random.Range(1, 3);
         int decorations = Random.Range(5, 13);
         Vector3 offset = Vector3.zero;
         float max = GetComponent<Collider>().bounds.extents.x -10;
@@ -48,7 +49,15 @@ public class Room : MonoBehaviour
             g.transform.position = transform.position + offset;
         }
 
-        for(int iter = 0;iter<decorations;iter++)
+        for (int iter = 0; iter < slimes; iter++)
+        {
+            GameObject g = Instantiate(Resources.Load<GameObject>("Prefabs/slimey"));
+            offset.x = Random.Range(-max, max);
+            offset.z = Random.Range(-max, max);
+            g.transform.position = transform.position + offset;
+        }
+
+        for (int iter = 0;iter<decorations;iter++)
         {
             string dec = "crate";
             if(Random.Range(0,2)>0)

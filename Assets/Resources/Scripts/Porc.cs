@@ -5,12 +5,12 @@ using UnityEngine;
 public class Porc : Enemy
 {
     float range = 10;
-    float _speed = 8f;
+    float _speed = 9f;
     // Start is called before the first frame update
     void Start()
     {
         base.onStart();
-        health = 200;
+        health = 140;
         base.speed = _speed;
     }
 

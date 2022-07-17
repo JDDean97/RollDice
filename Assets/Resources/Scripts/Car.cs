@@ -47,7 +47,7 @@ public class Car : MonoBehaviour
         accelBase = 30 + (20 * (PlayerPrefs.GetFloat("accel")*0.1f));
         topSpeed = 20 + (30 * (PlayerPrefs.GetFloat("speed")*0.1f));
         rotateBase = 60 + (90 * (PlayerPrefs.GetFloat("turn")*0.1f));
-        brakeStrength = 20 + (40 * (PlayerPrefs.GetFloat("brake")*0.1f));
+        brakeStrength = 20 + (30 * (PlayerPrefs.GetFloat("brake")*0.1f));
         boostPower = 0.001f + (0.002f * (PlayerPrefs.GetFloat("boost")*0.1f));
     }
 
